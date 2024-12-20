@@ -1,0 +1,50 @@
+{
+    "name": "brokeyourbike/bizao-api-client",
+    "description": "Bizao API Client for PHP",
+    "keywords": [
+        "api",
+        "api-client",
+        "bizao",
+        "brokeyourbike"
+    ],
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "BrokeYourBike\\Bizao\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BrokeYourBike\\Bizao\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ivan Stasiuk",
+            "email": "ivan@stasi.uk",
+            "homepage": "https://stasi.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "brokeyourbike/http-client": "^1.0",
+        "brokeyourbike/resolve-uri": "^1.0",
+        "brokeyourbike/http-enums": "^2.0",
+        "brokeyourbike/has-source-model": "^2.0",
+        "brokeyourbike/data-transfer-object": "^0.2.0",
+        "psr/simple-cache": "^1.0"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.4",
+        "phpunit/phpunit": "^9",
+        "mockery/mockery": "^1.4",
+        "nesbot/carbon": "^2.53"
+    },
+    "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        }
+    }
+}
