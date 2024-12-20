@@ -105,7 +105,7 @@ class Client implements HttpClientInterface
                 'currency' => $transaction->getCurrency(),
                 'amount' => $transaction->getAmount(),
                 'order_id' => $transaction->getReference(),
-                'reference' => $transaction->getReference(),
+                'reference' => $this->config->getMerchantReference(),
                 'state' => 'COMPLETED',
                 'user_msisdn' => $transaction->getRecipientPhone(),
                 'return_url' => $this->config->getMerchantReturnUrl(),

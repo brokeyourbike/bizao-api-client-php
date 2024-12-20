@@ -14,6 +14,7 @@ interface ConfigInterface
     public function getUrl(): string;
     public function getUsername(): string;
     public function getPassword(): string;
+    public function getMerchantReference(): string;
     public function getMerchantReturnUrl(): string;
     public function getMerchantCancelUrl(): string;
 }
