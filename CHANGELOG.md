@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.2.0...v0.3.0) (2024-12-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* otp code
+
+### Features
+
+* otp code ([cd6667d](https://www.github.com/brokeyourbike/bizao-api-client-php/commit/cd6667d80213201abfc5765388188f10752664ed))
+
 ## [0.2.0](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.1.1...v0.2.0) (2024-12-20)
 
 
