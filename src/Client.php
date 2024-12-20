@@ -102,7 +102,7 @@ class Client implements HttpClientInterface
                 'lang' => 'fr',
             ],
             \GuzzleHttp\RequestOptions::JSON => [
-                'currency' => $transaction->getRecipientCountry(),
+                'currency' => $transaction->getCurrency(),
                 'amount' => $transaction->getAmount(),
                 'order_id' => $transaction->getReference(),
                 'reference' => $transaction->getReference(),
