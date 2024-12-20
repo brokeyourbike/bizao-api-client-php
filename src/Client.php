@@ -12,6 +12,7 @@ use BrokeYourBike\ResolveUri\ResolveUriTrait;
 use BrokeYourBike\HttpEnums\HttpMethodEnum;
 use BrokeYourBike\HttpClient\HttpClientTrait;
 use BrokeYourBike\HttpClient\HttpClientInterface;
+use BrokeYourBike\HasSourceModel\SourceModelInterface;
 use BrokeYourBike\HasSourceModel\HasSourceModelTrait;
 use BrokeYourBike\Bizao\Responses\TransactionResponse;
 use BrokeYourBike\Bizao\Responses\TokenResponse;
@@ -108,10 +109,15 @@ class Client implements HttpClientInterface
                 'reference' => $this->config->getMerchantReference(),
                 'state' => 'COMPLETED',
                 'user_msisdn' => $transaction->getRecipientPhone(),
+                'otp_code' => $this->config->getMerchantOtpCode(),
                 'return_url' => $this->config->getMerchantReturnUrl(),
                 'cancel_url' => $this->config->getMerchantCancelUrl(),
             ],
         ];
+
+        if ($transaction instanceof SourceModelInterface){
+            $options[\BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL] = $transaction;
+        }
 
         $response = $this->httpClient->request(
             HttpMethodEnum::POST->value,
@@ -122,18 +128,24 @@ class Client implements HttpClientInterface
         return new TransactionResponse($response);
     }
 
-    public function status(string $reference): TransactionResponse
+    public function status(TransactionInterface $transaction): TransactionResponse
     {
         $options = [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer {$this->getAuthToken()}",
+                'mno-name' => $transaction->getRecipientProvider() ? strtolower($transaction->getRecipientProvider()) : null,
+                'country-code' => $transaction->getRecipientCountry() ? strtolower($transaction->getRecipientCountry()) : null,
             ],
         ];
 
+        if ($transaction instanceof SourceModelInterface){
+            $options[\BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL] = $transaction;
+        }
+
         $response = $this->httpClient->request(
             HttpMethodEnum::GET->value,
-            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), "/mobilemoney/v1/getStatus/{$reference}"),
+            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), "/mobilemoney/v1/getStatus/{$transaction->getReference()}"),
             $options
         );
 
