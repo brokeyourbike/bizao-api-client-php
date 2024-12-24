@@ -14,7 +14,7 @@ use BrokeYourBike\HttpClient\HttpClientTrait;
 use BrokeYourBike\HttpClient\HttpClientInterface;
 use BrokeYourBike\HasSourceModel\SourceModelInterface;
 use BrokeYourBike\HasSourceModel\HasSourceModelTrait;
-use BrokeYourBike\Bizao\Responses\TransactionResponse;
+use BrokeYourBike\Bizao\Responses\TransactionsResponse;
 use BrokeYourBike\Bizao\Responses\TokenResponse;
 use BrokeYourBike\Bizao\Interfaces\TransactionInterface;
 use BrokeYourBike\Bizao\Interfaces\ConfigInterface;
@@ -91,27 +91,33 @@ class Client implements HttpClientInterface
         return new TokenResponse($response);
     }
 
-    public function payout(TransactionInterface $transaction): TransactionResponse
+    // https://www.bizao.com/cashin-bulk-mobile-money-2/
+    public function payout(TransactionInterface $transaction): TransactionsResponse
     {
         $options = [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer {$this->getAuthToken()}",
-                'mno-name' => $transaction->getRecipientProvider() ? strtolower($transaction->getRecipientProvider()) : null,
-                'country-code' => $transaction->getRecipientCountry() ? strtolower($transaction->getRecipientCountry()) : null,
+                'country-code' => strtolower($transaction->getRecipientCountry()),
                 'channel' => 'tpe',
+                'type' => 'bulk',
                 'lang' => 'fr',
             ],
             \GuzzleHttp\RequestOptions::JSON => [
                 'currency' => $transaction->getCurrency(),
-                'amount' => $transaction->getAmount(),
-                'order_id' => $transaction->getReference(),
                 'reference' => $this->config->getMerchantReference(),
+                'batchNumber' => $transaction->getReference(),
                 'state' => 'COMPLETED',
-                'user_msisdn' => $transaction->getRecipientPhone(),
-                'otp_code' => $this->config->getMerchantOtpCode(),
-                'return_url' => $this->config->getMerchantReturnUrl(),
-                'cancel_url' => $this->config->getMerchantCancelUrl(),
+                'data' => [[
+                    'id' => '001',
+                    'beneficiaryFirstName' => $transaction->getRecipientFirstName(),
+                    'beneficiaryLastName' => $transaction->getRecipientLastName(),
+                    'beneficiaryAddress' => $transaction->getRecipientCountry(),
+                    'beneficiaryMobileNumber' => $transaction->getRecipientPhone(),
+                    'amount' => $transaction->getAmount(),
+                    'mno' => $transaction->getRecipientProvider(),
+                    'feesApplicable' => 'YES',
+                ]]
             ],
         ];
 
@@ -121,21 +127,22 @@ class Client implements HttpClientInterface
 
         $response = $this->httpClient->request(
             HttpMethodEnum::POST->value,
-            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), '/mobilemoney/v1'),
+            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), '/bulk/v1'),
             $options
         );
 
-        return new TransactionResponse($response);
+        return new TransactionsResponse($response);
     }
 
-    public function status(TransactionInterface $transaction): TransactionResponse
+    // https://www.bizao.com/cashin-bulk-mobile-money-2/
+    public function status(TransactionInterface $transaction): TransactionsResponse
     {
         $options = [
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer {$this->getAuthToken()}",
-                'mno-name' => $transaction->getRecipientProvider() ? strtolower($transaction->getRecipientProvider()) : null,
-                'country-code' => $transaction->getRecipientCountry() ? strtolower($transaction->getRecipientCountry()) : null,
+                'channel' => 'tpe',
+                'type' => 'bulk',
             ],
         ];
 
@@ -145,10 +152,10 @@ class Client implements HttpClientInterface
 
         $response = $this->httpClient->request(
             HttpMethodEnum::GET->value,
-            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), "/mobilemoney/v1/getStatus/{$transaction->getReference()}"),
+            (string) $this->resolveUriFor(rtrim($this->config->getUrl(), '/'), "/bulk/v1/getStatus/{$transaction->getReference()}"),
             $options
         );
 
-        return new TransactionResponse($response);
+        return new TransactionsResponse($response);
     }
 }
