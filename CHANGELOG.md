@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.3.0...v0.4.0) (2024-12-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* bulk
+
+### Features
+
+* bulk ([2556a71](https://www.github.com/brokeyourbike/bizao-api-client-php/commit/2556a713a91b7d24d309930e53f2ba84b04c5e0f))
+
 ## [0.3.0](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.2.0...v0.3.0) (2024-12-20)
 
 
