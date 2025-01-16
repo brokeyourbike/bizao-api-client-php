@@ -11,7 +11,7 @@ namespace BrokeYourBike\Bizao\Enums;
  */
 enum TransactionStatusEnum: string
 {
-    case SUCCESSFUL = 'successful';
-    case PENDING = 'pending';
+    case SUCCESSFUL = 'Successful';
+    case PENDING = 'Pending';
     case FAILED = 'Failed';
 }

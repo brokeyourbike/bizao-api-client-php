@@ -99,7 +99,7 @@ class Client implements HttpClientInterface
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer {$this->getAuthToken()}",
                 'country-code' => strtolower($transaction->getRecipientCountry()),
-                'channel' => 'tpe',
+                'channel' => 'web',
                 'type' => 'bulk',
                 'lang' => 'fr',
             ],
@@ -141,7 +141,7 @@ class Client implements HttpClientInterface
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Authorization' => "Bearer {$this->getAuthToken()}",
-                'channel' => 'tpe',
+                'channel' => 'web',
                 'type' => 'bulk',
             ],
         ];
