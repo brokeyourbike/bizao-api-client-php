@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.1](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.6.0...v0.6.1) (2026-03-16)
+
+
+### Bug Fixes
+
+* lock ([9072a07](https://www.github.com/brokeyourbike/bizao-api-client-php/commit/9072a07bf6cdd9d675b4748c3309aaf139991321))
+
 ## [0.6.0](https://www.github.com/brokeyourbike/bizao-api-client-php/compare/v0.5.0...v0.6.0) (2026-03-16)
 
 
