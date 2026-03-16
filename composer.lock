@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2906f3c80b0b93f6d9bfc1a4d606281",
+    "content-hash": "eb9ca61bd7ba32a0ef6551c4752e9646",
     "packages": [
         {
             "name": "brokeyourbike/data-transfer-object",
@@ -60,16 +60,16 @@
         },
         {
             "name": "brokeyourbike/has-source-model",
-            "version": "2.0.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brokeyourbike/has-source-model-laravel.git",
-                "reference": "f674070764dac9a3f42db0ff7111ca0d41fb5a1d"
+                "reference": "88c84d381ccab8cfb812056e718d0c0c8f4336d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brokeyourbike/has-source-model-laravel/zipball/f674070764dac9a3f42db0ff7111ca0d41fb5a1d",
-                "reference": "f674070764dac9a3f42db0ff7111ca0d41fb5a1d",
+                "url": "https://api.github.com/repos/brokeyourbike/has-source-model-laravel/zipball/88c84d381ccab8cfb812056e718d0c0c8f4336d6",
+                "reference": "88c84d381ccab8cfb812056e718d0c0c8f4336d6",
                 "shasum": ""
             },
             "require": {
@@ -98,9 +98,19 @@
             ],
             "description": "Interface for interacting with source models",
             "support": {
-                "source": "https://github.com/brokeyourbike/has-source-model-laravel/tree/v2.0.1"
+                "source": "https://github.com/brokeyourbike/has-source-model-laravel/tree/v3.0.0"
             },
-            "time": "2023-05-14T22:18:12+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/brokeyourbike",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/brokeyourbike",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2026-03-16T14:44:31+00:00"
         },
         {
             "name": "brokeyourbike/http-client",
@@ -3442,12 +3452,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
